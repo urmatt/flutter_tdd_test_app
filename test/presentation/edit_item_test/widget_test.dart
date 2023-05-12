@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('Add todo item test', (WidgetTester tester) async {
     GetIt.I.registerSingleton<ToDoRepository>(ToDoRepositoryImpl());
 
     // Build our app and trigger a frame.

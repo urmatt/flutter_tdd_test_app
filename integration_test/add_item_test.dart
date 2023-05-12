@@ -1,17 +1,15 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:ex_test_app/main.dart' as app;
 
-void main () {
+void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('End to end test', () {
-    testWidgets('Add item verify count', (tester) async {
+    testWidgets('Add,remove item verify count', (tester) async {
       app.main();
-
       await tester.pumpAndSettle();
 
       expect(find.byKey(const Key('todos_list')), findsOneWidget);
@@ -40,6 +38,21 @@ void main () {
       expect(find.byKey(const Key('todos_list')), findsOneWidget);
       expect(find.widgetWithText(ListTile, title), findsOneWidget);
       expect(find.widgetWithText(ListTile, description), findsOneWidget);
+
+
+      /// REMOVE item part
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const Key('todos_list')), findsOneWidget);
+
+      expect(find.byIcon(Icons.delete), findsOneWidget);
+
+      await tester.tap(find.byIcon(Icons.delete));
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const Key('todos_list')), findsOneWidget);
+
+      expect(find.byIcon(Icons.delete), findsNothing);
     });
   });
 }
